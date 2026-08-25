@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/components/jackpot-tracker/jackpot-tracker.osc.html" }
+  ]
+}

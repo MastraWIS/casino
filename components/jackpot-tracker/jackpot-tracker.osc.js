@@ -1,13 +1,13 @@
 (function () {
   const DATA = [
-    { id: 1, game: "Mega Moolah Mega", provider: "Microgaming", amount: 13624970, avgWin: "6.151.937 €", avgFreq: "9 Wochen", lastHit: "vor 1J 11W", status: "overdue", casino: { name: "Ice Casino", logo: "assets/logos/ice-casino.svg", bg: "#1667FE" } },
-    { id: 2, game: "Joker Millions", provider: "Yggdrasil", amount: 4776717, avgWin: "2.985.974 €", avgFreq: "33 Wochen", lastHit: "vor 3J 31W", status: "overdue", casino: { name: "Beef Casino", logo: "assets/logos/beef-casino.svg", bg: "#232E3F" } },
-    { id: 3, game: "Shopping Spree", provider: "RTG", amount: 4053292, avgWin: "2.594.106 €", avgFreq: "4 Jahre", lastHit: "vor 4J 7W", status: "hot", casino: { name: "V.Vegas", logo: "assets/logos/vvegas.svg", bg: "#5CAFBD" } },
-    { id: 4, game: "Hall of Gods Mega", provider: "NetEnt", amount: 3065549, avgWin: "5.619.688 €", avgFreq: "38 Wochen", lastHit: "vor 3J 18W", status: "overdue", casino: { name: "Crocoslots", logo: "assets/logos/crocoslots.svg", bg: "#212738" } },
-    { id: 5, game: "Jackpot King", provider: "Blueprint", amount: 2661106, avgWin: "—", avgFreq: "—", lastHit: "—", status: "recent", casino: { name: "Bitkingz", logo: "assets/logos/bitkingz.svg", bg: "#242732" } },
-    { id: 6, game: "King Cashalot", provider: "Microgaming", amount: 2224299, avgWin: "1.982.410 €", avgFreq: "12 Wochen", lastHit: "vor 5W", status: "none", casino: { name: "Slotsgem", logo: "assets/logos/slotsgem.svg", bg: "#000000" } },
-    { id: 7, game: "Aztec's Millions", provider: "RTG", amount: 1821509, avgWin: "1.340.220 €", avgFreq: "20 Wochen", lastHit: "vor 22W", status: "none", casino: { name: "SpinLynx", logo: "assets/logos/spinlynx.svg", bg: "#100032" } },
-    { id: 8, game: "Jackpot Piñatas", provider: "RTG", amount: 1638320, avgWin: "980.600 €", avgFreq: "16 Wochen", lastHit: "vor 9W", status: "none", casino: { name: "Vegazone", logo: "assets/logos/vegazone.svg", bg: "#321A1C" } },
+    { id: 1, game: "Mega Moolah Mega", provider: "Microgaming", amount: 13624970, avgWin: "6.151.937 €", avgFreq: "9 Wochen", lastHit: "vor 1J 11W", status: "overdue", casino: { name: "Ice Casino", logo: "/components/jackpot-tracker/assets/logos/ice-casino.svg", bg: "#1667FE" } },
+    { id: 2, game: "Joker Millions", provider: "Yggdrasil", amount: 4776717, avgWin: "2.985.974 €", avgFreq: "33 Wochen", lastHit: "vor 3J 31W", status: "overdue", casino: { name: "Beef Casino", logo: "/components/jackpot-tracker/assets/logos/beef-casino.svg", bg: "#232E3F" } },
+    { id: 3, game: "Shopping Spree", provider: "RTG", amount: 4053292, avgWin: "2.594.106 €", avgFreq: "4 Jahre", lastHit: "vor 4J 7W", status: "hot", casino: { name: "V.Vegas", logo: "/components/jackpot-tracker/assets/logos/vvegas.svg", bg: "#5CAFBD" } },
+    { id: 4, game: "Hall of Gods Mega", provider: "NetEnt", amount: 3065549, avgWin: "5.619.688 €", avgFreq: "38 Wochen", lastHit: "vor 3J 18W", status: "overdue", casino: { name: "Crocoslots", logo: "/components/jackpot-tracker/assets/logos/crocoslots.svg", bg: "#212738" } },
+    { id: 5, game: "Jackpot King", provider: "Blueprint", amount: 2661106, avgWin: "—", avgFreq: "—", lastHit: "—", status: "recent", casino: { name: "Bitkingz", logo: "/components/jackpot-tracker/assets/logos/bitkingz.svg", bg: "#242732" } },
+    { id: 6, game: "King Cashalot", provider: "Microgaming", amount: 2224299, avgWin: "1.982.410 €", avgFreq: "12 Wochen", lastHit: "vor 5W", status: "none", casino: { name: "Slotsgem", logo: "/components/jackpot-tracker/assets/logos/slotsgem.svg", bg: "#000000" } },
+    { id: 7, game: "Aztec's Millions", provider: "RTG", amount: 1821509, avgWin: "1.340.220 €", avgFreq: "20 Wochen", lastHit: "vor 22W", status: "none", casino: { name: "SpinLynx", logo: "/components/jackpot-tracker/assets/logos/spinlynx.svg", bg: "#100032" } },
+    { id: 8, game: "Jackpot Piñatas", provider: "RTG", amount: 1638320, avgWin: "980.600 €", avgFreq: "16 Wochen", lastHit: "vor 9W", status: "none", casino: { name: "Vegazone", logo: "/components/jackpot-tracker/assets/logos/vegazone.svg", bg: "#321A1C" } },
   ];
 
   const BADGE_LABEL = { overdue: "Überfällig", hot: "Heiß", recent: "Kürzlich geknackt" };
