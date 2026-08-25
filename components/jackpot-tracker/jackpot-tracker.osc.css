@@ -1,0 +1,448 @@
+/*
+  Componente: Jackpot Tracker — variante OSC (onlinespielcasino.de)
+  Adaptación de components/jackpot-tracker/jackpot-tracker.css (host de referencia TPP) a los tokens
+  reales de producción de OSC (tokens/osc.tokens.css). Mismo patrón/estructura, otra marca:
+  - Fondo hero: gradiente wine/plum real de OSC en vez del navy plano de TPP.
+  - Acento de la cifra de jackpot: oro (color real de H1/estrellas de OSC), no el teal de marca —
+    el teal de OSC se reserva para el CTA, igual que en producción (siempre el mismo teal ahí).
+  - CTA propio (.osc-btn-cta) replicando el botón real "Bonus Holen" (bg/radius/weight/font
+    idénticos a los 13 botones muestreados en la home) en vez de reutilizar el .tpp-btn-cta de TPP.
+*/
+
+/*
+  Nada en este componente fijaba box-sizing, y con content-box (default del navegador) cualquier
+  elemento con width:100% + padding/border se renderiza MÁS ANCHO que su contenedor — exactamente
+  lo que rompía el padding derecho de la página en las row-cards de la tabla mobile (tr con
+  width:100% + padding:12px 14px + border = 100% + 30px reales). Reset acotado al componente, no
+  global, para no afectar nada fuera de él.
+*/
+.osc-jackpot-tracker, .osc-jackpot-tracker *, .osc-jackpot-tracker *::before, .osc-jackpot-tracker *::after {
+  box-sizing: border-box;
+}
+
+.osc-jackpot-tracker {
+  --jt-text-muted: rgba(255, 255, 255, 0.65);
+
+  background: var(--osc-gradient-hero);
+  border-radius: var(--osc-radius-card);
+  padding: 32px 24px;
+  font-family: var(--osc-font-family);
+  color: var(--osc-color-text-inverted);
+}
+
+/* ---- Header ---- */
+
+.osc-jackpot-tracker__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.osc-jackpot-tracker__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: var(--osc-font-weight-h3, 700);
+  font-size: var(--osc-font-size-h3, 22px);
+  margin: 0;
+}
+
+.osc-jackpot-tracker__live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--osc-color-pink);
+  flex-shrink: 0;
+  animation: osc-jt-pulse 1.8s ease-in-out infinite;
+}
+
+.osc-jackpot-tracker__updated {
+  font-size: 12px;
+  color: var(--jt-text-muted);
+}
+
+@keyframes osc-jt-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(237, 30, 121, 0.55); }
+  50% { box-shadow: 0 0 0 5px rgba(237, 30, 121, 0); }
+}
+
+/* ---- Hero cards ----
+   Fila horizontal con scroll propio (pedido explícito: mismo comportamiento en desktop y mobile,
+   en vez de que las cards se apilen en 1 columna por debajo de 900px). */
+
+.osc-jackpot-tracker__hero-grid {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.osc-jt-card {
+  position: relative;
+  background: var(--osc-color-purple-700);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--osc-radius-card);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+}
+
+.osc-jt-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Category badge — clon exacto de ".category-badge.bg-pink-dark" (cards de ranking de la home).
+   Una sola variante visual para toda categoría/estado, el texto es lo que cambia. */
+.osc-jt-badge {
+  display: inline-flex;
+  background: var(--osc-color-category-badge-bg, #ED1E79);
+  color: var(--osc-color-category-badge-text, #fff);
+  border-radius: var(--osc-radius-category-badge, 4px);
+  padding: var(--osc-spacing-category-badge-padding, 4.25px 8.5px);
+  font-size: var(--osc-font-size-category-badge, 14px);
+  line-height: var(--osc-line-height-category-badge, 20px);
+  font-weight: var(--osc-font-weight-category-badge, 500);
+  text-transform: uppercase;
+}
+
+/* Trío provider → game → amount deliberadamente apretado (menos aire = más info arriba del pliegue).
+   Se usa margin explícito en vez del gap del card para no afectar el resto del layout.
+
+   Escala tipográfica: game y amount ahora usan los tokens reales de heading de OSC (H3/H1) en vez
+   de tamaños sueltos, para quedar consistentes con el resto del sitio — game = H3 (22px/700, es
+   sub-heading dentro de la card), amount = H1 (30px/700, es el contenido protagonista de la card).
+   Único deliberado: el line-height real del H1 (39px, medido en el hero de la home) NO se copia
+   aquí — con ese leading el número volvería a ocupar el espacio vertical que acabamos de recortar.
+   Se usa 1.15 en su lugar. provider NO tiene equivalente de heading: no existe H4/H5 en OSC (se
+   comprobó en home y en /bester-casino-bonus/, 0 resultados en ambas) — se deja como texto utilitario
+   pequeño, igual que trata OSC sus propios captions no-heading (p. ej. el "4.4/5" de rating). */
+.osc-jt-card__headline { margin: 0; }
+
+.osc-jt-card__provider {
+  font-size: 12px;
+  color: var(--jt-text-muted);
+  margin: 0 0 2px;
+}
+
+.osc-jt-card__game {
+  font-weight: var(--osc-font-weight-h3, 700);
+  font-size: var(--osc-font-size-h3, 22px);
+  margin: 0 0 4px;
+}
+
+.osc-jt-card__amount {
+  font-weight: var(--osc-font-weight-h1, 700);
+  font-size: var(--osc-font-size-h1, 30px);
+  line-height: 1.15;
+  color: var(--osc-color-gold);
+  transition: color 0.2s ease;
+  margin: 0;
+}
+
+.osc-jt-card__amount.is-updating { color: var(--osc-color-text-inverted); }
+
+.osc-jt-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.osc-jt-stat__label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--jt-text-muted);
+  margin-bottom: 2px;
+}
+
+.osc-jt-stat__value {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/*
+  ---- CTA — clon exacto del botón real "BONUS HOLEN" del hub de bonos
+  (/bester-casino-bonus/, clase real ".promo-code-cta-primary"). Tomado de las reglas CSS reales
+  del sitio, no solo del computed style: incluye el "3D bottom shadow" (box-shadow sólido que NO
+  cambia entre estados) y el oscurecimiento de fondo en :hover/:active.
+  Único cambio deliberado vs. producción: ahí el botón mide width:50% porque comparte fila con un
+  botón secundario "CODE" que este componente no tiene — aquí ocupa el ancho completo disponible.
+*/
+
+.osc-btn-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  border-radius: var(--osc-radius-promo-cta, 8px);
+  background: var(--osc-color-promo-cta-bg, #ED1E79);
+  color: var(--osc-color-promo-cta-text, #fff);
+  font-family: var(--osc-font-family);
+  font-weight: var(--osc-font-weight-promo-cta, 600);
+  font-size: var(--osc-font-size-promo-cta, 14px);
+  line-height: 18px;
+  text-transform: var(--osc-text-transform-promo-cta, uppercase);
+  padding: var(--osc-spacing-promo-cta-padding, 12px 20px);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--osc-color-promo-cta-shadow, #A40E4C) 0 3px 0 0;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.osc-btn-cta:hover { background: var(--osc-color-promo-cta-bg-hover, #FF3E93); }
+.osc-btn-cta:active { background: var(--osc-color-promo-cta-bg-active, #A30D4C); }
+
+/*
+  ---- Casino logo chip — patrón real ".promo-code-bookie-logo-btn" del hub de bonos: fondo teñido
+  con el color de marca de CADA operador, no un chip genérico (medido real por casino: Ice Casino
+  #1667FE, Beef #232E3F, V.Vegas #5CAFBD, Crocoslots #212738, Bitkingz #242732, Slotsgem #000000,
+  SpinLynx #100032, Vegazone #321A1C — fijado por instancia vía --osc-jt-casino-bg en el JS).
+  En la card va en la MISMA fila que el CTA (pedido explícito), a un tamaño menor que el botón —
+  en producción el chip mide 118x40px porque va junto a un botón secundario "CODE" más angosto;
+  aquí, junto a un CTA de ancho completo, se reduce a 72x32px para no competirle protagonismo.
+*/
+
+.osc-jt-card__cta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.osc-jt-card__casino {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 42px; /* = altura real del CTA (padding 12px + line-height 18px), para alinear ambos */
+  flex-shrink: 0;
+  background: var(--osc-jt-casino-bg, #232E3F);
+  border-radius: 6px;
+}
+
+.osc-jt-card__casino-logo {
+  width: 64px;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.osc-jt-table__casino {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 28px;
+  background: var(--osc-jt-casino-bg, #232E3F);
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.osc-jt-table__casino-logo {
+  width: 68px;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.osc-jt-table__cta-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---- Table ---- */
+
+.osc-jackpot-tracker__table-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.osc-jt-search {
+  background: var(--osc-color-purple-700);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: var(--osc-color-text-inverted);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  min-width: 220px;
+}
+
+.osc-jt-search::placeholder { color: var(--jt-text-muted); }
+.osc-jt-search:focus { outline: 2px solid var(--osc-color-gold); outline-offset: 1px; }
+
+.osc-jackpot-tracker__table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--osc-radius-card);
+}
+
+.osc-jt-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 14px;
+}
+
+.osc-jt-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--jt-text-muted);
+  padding: 10px 16px;
+  background: var(--osc-color-purple-700);
+  position: sticky;
+  top: 0;
+}
+
+.osc-jt-table th[data-sortable] { cursor: pointer; user-select: none; }
+.osc-jt-table th[data-sortable]:hover { color: var(--osc-color-text-inverted); }
+
+.osc-jt-table td {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  vertical-align: middle;
+}
+
+.osc-jt-table tbody tr:hover { background: rgba(255, 255, 255, 0.04); }
+
+.osc-jt-table__game { font-weight: 600; }
+.osc-jt-table__provider { color: var(--jt-text-muted); font-size: 12px; }
+.osc-jt-table__amount { font-weight: 700; color: var(--osc-color-gold); }
+
+.osc-jt-table .osc-btn-cta {
+  width: auto;
+  padding: 6px 16px;
+  font-size: 12px;
+}
+
+/*
+  ---- Responsive: por debajo de 680px la tabla deja de ser una tabla visual y cada <tr> se
+  convierte en una row-card apilada. No es un capricho — OSC no tiene NI UN <table> real en todo
+  el sitio (se comprobó en home y en el hub de bonos): su propio patrón para listar filas
+  comparables (el ranking de "Beste Casinos") ya es una lista de cards apiladas, incluso en
+  desktop. Encoger la tabla o forzar scroll horizontal habría sido menos fiel a como OSC resuelve
+  esto que replicar su propio patrón real.
+  <thead> se oculta visualmente pero queda accesible (screen readers); cada <td> se etiqueta vía
+  atributo data-label (ver JS) usando ::before, técnica CSS estándar para tablas responsive.
+  La columna "Anbieter" se oculta en mobile: es un duplicado exacto del caption ya visible dentro
+  de la celda del juego, mantenerla ahí solo repetía el dato.
+*/
+@media (max-width: 680px) {
+  .osc-jackpot-tracker { padding: 24px 16px; }
+
+  .osc-jackpot-tracker__table-wrap { overflow-x: visible; border: none; }
+
+  .osc-jt-table { min-width: 0; }
+
+  .osc-jt-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .osc-jt-table, .osc-jt-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  /*
+    tr pasa a fila flex en vez de bloque apilado: título (game+provider) y "Jackpot" quedan
+    lado a lado en la misma altura (pedido explícito, con mockup de referencia), en vez de uno
+    debajo del otro — ahorra bastante alto por card. El botón + logo (última celda) fuerza su
+    propio salto de línea con flex-basis:100%.
+  */
+  .osc-jt-table tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    column-gap: 12px;
+    background: var(--osc-color-purple-700);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+
+  .osc-jt-table td {
+    display: block;
+    border-top: none;
+    padding: 0;
+  }
+
+  /* Celda del juego: columna izquierda, crece para llenar el espacio sobrante. */
+  .osc-jt-table__game { flex: 1 1 auto; min-width: 0; font-size: 16px; }
+
+  /* Duplica el caption ya visible en la celda del juego — se oculta solo en esta vista apilada. */
+  .osc-jt-table td.osc-jt-table__provider[data-label] { display: none; }
+
+  /* Celda del jackpot: columna derecha, mismo alto que el título — label arriba, valor debajo,
+     ambos alineados a la derecha (ver mockup). */
+  .osc-jt-table td.osc-jt-table__amount[data-label] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    flex: 0 0 auto;
+  }
+
+  .osc-jt-table td[data-label]::before {
+    content: attr(data-label);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--jt-text-muted);
+    margin-bottom: 2px;
+  }
+
+  .osc-jt-table__amount-value { font-size: 15px; }
+
+  /* Última celda (logo + CTA): fuerza salto de línea propio, ancho completo. */
+  .osc-jt-table td:last-child {
+    flex: 0 0 100%;
+    width: 100%;
+    padding-top: 10px;
+  }
+}
+
+.osc-jackpot-tracker__footer {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.osc-jackpot-tracker__footer a {
+  color: var(--osc-color-gold);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.osc-jackpot-tracker__footer a:hover { text-decoration: underline; }

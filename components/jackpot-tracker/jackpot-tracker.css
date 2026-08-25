@@ -1,0 +1,269 @@
+/*
+  Componente: Jackpot Tracker (TPP) — reference host
+  Referencia de patrón/contenido: https://casinotracking.com/jackpot-tracker (estructura de cards +
+  tabla + badges de urgencia). Colores NO copiados de esa referencia (usa cyan de marca propia) — aquí
+  se remapean a los tokens semánticos de TPP (tokens/tokens.css). Reutiliza .tpp-btn-cta tal cual
+  (cta-button.css) para que el CTA sea idéntico al resto del sitio.
+
+  Variables locales sin token TPP publicado todavía (superficie oscura de card, radius de card,
+  duración de la animación "live"): documentadas aquí con fallback fijo, no se inventan como si
+  fueran tokens oficiales — mismo criterio que tpp-design-system-rules.md.
+*/
+
+.tpp-jackpot-tracker {
+  --jt-radius-card: 16px;
+  --jt-surface-base: var(--tpp-color-blue-900, #182630);
+  --jt-surface-card: var(--tpp-color-blue-800, #203342);
+  --jt-surface-card-alt: var(--tpp-color-blue-700, #284256);
+  --jt-border: rgba(255, 255, 255, 0.08);
+  --jt-text-primary: var(--tpp-color-white, #FFFFFF);
+  --jt-text-muted: #9FB3C2;
+
+  background: var(--jt-surface-base);
+  border-radius: var(--jt-radius-card);
+  padding: 32px 24px;
+  font-family: var(--tpp-font-family-body, "Nunito Sans", sans-serif);
+  color: var(--jt-text-primary);
+}
+
+/* ---- Header ---- */
+
+.tpp-jackpot-tracker__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.tpp-jackpot-tracker__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--tpp-font-family-heading, "Poppins", sans-serif);
+  font-weight: 700;
+  font-size: var(--tpp-font-size-desktop-h3, 20px);
+  margin: 0;
+}
+
+.tpp-jackpot-tracker__live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--tpp-color-error-base, #DC3545);
+  flex-shrink: 0;
+  animation: jt-pulse 1.8s ease-in-out infinite;
+}
+
+.tpp-jackpot-tracker__updated {
+  font-size: var(--tpp-font-size-desktop-body-12, 12px);
+  color: var(--jt-text-muted);
+}
+
+@keyframes jt-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.55); }
+  50% { box-shadow: 0 0 0 5px rgba(220, 53, 69, 0); }
+}
+
+/* ---- Hero cards ---- */
+
+.tpp-jackpot-tracker__hero-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tpp-spacing-5, 16px);
+  margin-bottom: 32px;
+}
+
+@media (max-width: 900px) {
+  .tpp-jackpot-tracker__hero-grid { grid-template-columns: 1fr; }
+}
+
+.jt-card {
+  position: relative;
+  background: var(--jt-surface-card);
+  border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius-card);
+  padding: var(--tpp-spacing-5, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jt-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.jt-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.jt-badge--overdue { background: var(--tpp-color-warning-base, #FFC53D); color: var(--tpp-color-blue-900, #182630); }
+.jt-badge--hot { background: var(--tpp-color-brand-primary-02, #009F93); color: var(--tpp-color-white, #fff); }
+.jt-badge--recent { background: var(--jt-surface-card-alt); color: var(--jt-text-muted); border: 1px solid var(--jt-border); }
+
+.jt-card__provider {
+  font-size: var(--tpp-font-size-desktop-body-12, 12px);
+  color: var(--jt-text-muted);
+}
+
+.jt-card__game {
+  font-family: var(--tpp-font-family-heading, "Poppins", sans-serif);
+  font-weight: 700;
+  font-size: var(--tpp-font-size-desktop-h4, 18px);
+  margin: 0;
+}
+
+.jt-card__amount {
+  font-family: var(--tpp-font-family-heading, "Poppins", sans-serif);
+  font-weight: 800;
+  font-size: 32px;
+  color: var(--tpp-color-brand-primary-01, #29D1C4);
+  transition: color 0.2s ease;
+}
+
+.jt-card__amount.is-updating { color: var(--tpp-color-white, #fff); }
+
+.jt-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid var(--jt-border);
+  border-bottom: 1px solid var(--jt-border);
+}
+
+.jt-stat__label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--jt-text-muted);
+  margin-bottom: 2px;
+}
+
+.jt-stat__value {
+  display: block;
+  font-size: var(--tpp-font-size-desktop-body-14, 14px);
+  font-weight: 600;
+}
+
+.jt-card__signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--tpp-font-size-desktop-body-12, 12px);
+  font-weight: 600;
+}
+
+.jt-card__signal::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.jt-card__signal--go { color: var(--tpp-color-success-base, #1CB564); }
+.jt-card__signal--go::before { background: var(--tpp-color-success-base, #1CB564); }
+.jt-card__signal--wait { color: var(--jt-text-muted); }
+.jt-card__signal--wait::before { background: var(--jt-text-muted); }
+
+.jt-card .tpp-btn-cta {
+  width: 100%;
+  font-size: 14px;
+  padding: 10px var(--tpp-spacing-5, 16px);
+}
+
+/* ---- Table ---- */
+
+.tpp-jackpot-tracker__table-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.jt-search {
+  background: var(--jt-surface-card);
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  color: var(--jt-text-primary);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  min-width: 220px;
+}
+
+.jt-search::placeholder { color: var(--jt-text-muted); }
+.jt-search:focus { outline: 2px solid var(--tpp-color-brand-primary-01, #29D1C4); outline-offset: 1px; }
+
+.tpp-jackpot-tracker__table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius-card);
+}
+
+.jt-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 14px;
+}
+
+.jt-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--jt-text-muted);
+  padding: 10px 16px;
+  background: var(--jt-surface-card);
+  position: sticky;
+  top: 0;
+}
+
+.jt-table th[data-sortable] { cursor: pointer; user-select: none; }
+.jt-table th[data-sortable]:hover { color: var(--jt-text-primary); }
+
+.jt-table td {
+  padding: 12px 16px;
+  border-top: 1px solid var(--jt-border);
+  vertical-align: middle;
+}
+
+.jt-table tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+.jt-table__game { font-weight: 600; }
+.jt-table__provider { color: var(--jt-text-muted); font-size: 12px; }
+.jt-table__amount { font-weight: 700; color: var(--tpp-color-brand-primary-01, #29D1C4); }
+
+.jt-table .tpp-btn-cta {
+  padding: 6px 14px;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.tpp-jackpot-tracker__footer {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.tpp-jackpot-tracker__footer a {
+  color: var(--tpp-color-brand-primary-01, #29D1C4);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.tpp-jackpot-tracker__footer a:hover { text-decoration: underline; }

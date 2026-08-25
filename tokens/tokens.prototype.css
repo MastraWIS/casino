@@ -1,0 +1,124 @@
+/*
+  TPP Prototyping Tokens — producción-first
+  Fuente de verdad: https://www.thepunterspage.com/ (CSS custom properties + estilos computados reales,
+  extraídos 2026-08-11). Donde hay conflicto con tpp-design-system-rules.md (Figma), gana producción.
+  Ver figma-vs-production-discrepancies.md para el detalle token por token de cada decisión.
+
+  Este archivo es el que deben consumir los componentes de PROTOTIPADO (para que se vean fieles a lo que
+  el usuario ve hoy). tokens/tokens.css (Figma puro) se mantiene aparte como referencia de diseño/fuente,
+  no se sobreescribe.
+*/
+
+:root {
+  /* ---- Color · marca (sin conflicto Figma↔producción) ---- */
+  --tpp-color-green-300: #29D1C4;
+  --tpp-color-green-400: #009F93;
+  --tpp-color-green-700: #21585E;
+  --tpp-color-blue-300: #3A7CA5;
+  --tpp-color-blue-500: #335B7A;
+  --tpp-color-blue-800: #203342;
+  --tpp-color-white: #FFFFFF;
+  --tpp-color-dark: #171717;
+
+  /* ---- Color · CONFLICTO resuelto a favor de producción ---- */
+
+  /* #1: Figma CTA_button_tpp = #29D1C4 (teal). Producción real ("CLAIM BONUS") = #FDB833 (ámbar). */
+  --tpp-color-cta-primary-bg: #FDB833;
+
+  /* #3: Figma solo tenía un dark (#203342) para texto y headings. Producción separa ambos. */
+  --tpp-color-text-primary: #203342;      /* body text real, sin cambio vs. Figma */
+  --tpp-color-heading: #13293D;           /* NUEVO — solo headings (H1/H2 reales), no existía en Figma */
+
+  /* #4: "dark" de fondo de módulo stats. Figma decía #203342, producción usa uno más navy. */
+  --tpp-color-bg-dark: #0F1D3E;
+
+  /* #5: Figma Functional.Success = #1CB564 (verde). Producción reutiliza el teal de marca. */
+  --tpp-color-success: #29D1C4;
+
+  /* #6: Figma tenía DOS tokens de link distintos y no coincidían entre sí (#2D6DFD vs #009F93).
+     Producción renderiza realmente #009F93 — se usa ese. */
+  --tpp-color-link: #009F93;
+  --tpp-color-link-hover: #21585E;
+
+  /* Sin cambio, coinciden Figma↔producción */
+  --tpp-color-error: #DC3545;
+  --tpp-color-warning: #FFC53D; /* ver nota — el botón CTA real usa --tpp-color-cta-primary-bg, no este */
+
+  /* #12: nuevo, sin equivalente en Figma */
+  --tpp-color-info: #4BC3D3;
+
+  /* Neutrals — escala Gray-Blue, coincide exacto con Figma (#8) */
+  --tpp-color-neutral-50: #F9FAFB;
+  --tpp-color-neutral-100: #F3F4F6;
+  --tpp-color-neutral-200: #E5E7EB;
+  --tpp-color-neutral-300: #D1D5DB;
+  --tpp-color-neutral-400: #9CA3AF;
+  --tpp-color-neutral-500: #686F7D;
+  --tpp-color-neutral-600: #4B5563;
+  --tpp-color-neutral-700: #374151;
+  --tpp-color-neutral-800: #1F2937;
+  --tpp-color-neutral-900: #111827;
+
+  /* #9: escala plana, SIGUE viva en producción (módulo stats/KickForm) en paralelo a la Gray-Blue */
+  --tpp-color-neutral-flat-50: #F7F7F7;
+  --tpp-color-neutral-flat-200: #E6E6E6;
+
+  /*
+    #7 — AVISO DE NOMBRES, no de valor: si usas los nombres genéricos de Bootstrap "primary"/"secondary"
+    en cualquier integración, recuerda que están invertidos respecto a Figma:
+    --bs-primary (producción) = #335B7A = tpp-color-blue-500 (el "Secondary" de Figma)
+    --bs-secondary (producción) = #009F93 = tpp-color-green-400 (el "Primary" de Figma)
+    No renombres tpp-color-blue-500/green-400 a "primary"/"secondary" sin mirar este comentario.
+  */
+
+  /* ---- Typography ---- */
+  --tpp-font-family-heading: "Poppins", sans-serif; /* coincide, real: Poppins900italic */
+  --tpp-font-family-body: "Nunito Sans", sans-serif; /* coincide exacto */
+  --tpp-font-weight-heading: 900;   /* coincide */
+  --tpp-font-weight-cta: 800;       /* coincide (botón CTA real) */
+  --tpp-font-weight-body-regular: 400; /* #18 — no existía como paso en Figma (100/300/500/600/700/800/900), añadido porque es lo que renderiza el párrafo real */
+
+  /* #16: base <body> real (herencia) no coincide con ningún paso de Figma. Documentado, no recomendado
+     para nuevos componentes — para texto de párrafo usa body-16 (16px), que sí coincide. */
+  --tpp-font-size-body-base-inherited: 17.6px;
+
+  --tpp-font-size-body-16: 16px;   /* coincide con Figma y con el párrafo real */
+  --tpp-font-size-cta: 16px;       /* coincide, botón CTA real */
+
+  /* #17: line-height real de un párrafo de 16px = 22px, NO el 26px que Figma documenta para body-16 */
+  --tpp-line-height-body-16: 22px;
+  --tpp-line-height-cta: 16px; /* #19 — sin equivalente en Figma, botón real usa leading compacto */
+
+  /* #15: H1/H2 reales son FLUIDOS (viewport-based), no pasos fijos. Estos son los valores medidos en un
+     viewport de escritorio estándar — para fidelidad real hace falta clamp(), no un px fijo. */
+  --tpp-font-size-h1-measured: 25.995px;
+  --tpp-font-size-h2-measured: 22.725px;
+
+  /* ---- Spacing ---- */
+  /* #21: coincide Figma↔producción */
+  --tpp-spacing-5: 16px;
+
+  /* #20: Figma documentaba 10px para el padding vertical del botón CTA; el botón real usa 8px */
+  --tpp-spacing-cta-padding-y: 8px;
+  --tpp-spacing-cta-padding-x: 16px;
+
+  /*
+    #22: escala de spacing NUEVA, encontrada solo en producción (presets de WordPress, --wp--preset--spacing--*).
+    Figma no tenía valores confirmados más allá de spacing/4 y spacing/5 — se usa esta como escala de
+    trabajo para prototipado hasta que Figma publique el resto de "spacing/0-13".
+  */
+  --tpp-spacing-20: 7px;    /* 0.44rem */
+  --tpp-spacing-30: 10.7px; /* 0.67rem */
+  --tpp-spacing-40: 16px;   /* 1rem — = spacing-5 */
+  --tpp-spacing-50: 24px;   /* 1.5rem */
+  --tpp-spacing-60: 36px;   /* 2.25rem */
+  --tpp-spacing-70: 54px;   /* 3.38rem */
+  --tpp-spacing-80: 81px;   /* 5.06rem */
+
+  /* ---- Radius ---- */
+  --tpp-radius-cta: 10px;        /* #23 coincide */
+  --tpp-radius-secondary: 8px;   /* #24 coincide */
+  --tpp-radius-card: 10px;       /* #25 — nuevo, sin equivalente en Figma (variante 16px también existe: --stats-card-border-radius) */
+  --tpp-radius-card-stats: 16px; /* #25 — variante del módulo de stats */
+  --tpp-radius-base: 4px;        /* #26 — nuevo, radius base de Bootstrap sin equivalente en Figma */
+}

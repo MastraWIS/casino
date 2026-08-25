@@ -1,0 +1,140 @@
+/*
+  TPP Design Tokens — CSS Custom Properties
+  Fuente: CLAUDE.md (Figma MCP + Brands & Themes/TPP.tokens.json)
+  Prefijo --tpp- para no chocar con otros estilos al insertarse en un theme/child-theme de WordPress.
+*/
+
+:root {
+  /* ---- Color · primitivos ---- */
+  --tpp-color-green-50: #F1FDFD;
+  --tpp-color-green-100: #E3FDFB;
+  --tpp-color-green-200: #78ECE3;
+  --tpp-color-green-300: #29D1C4;
+  --tpp-color-green-400: #009F93;
+  --tpp-color-green-500: #0C7977;
+  --tpp-color-green-600: #1A6368;
+  --tpp-color-green-700: #21585E;
+  --tpp-color-green-800: #1D4044;
+  --tpp-color-green-900: #112827;
+
+  --tpp-color-blue-50: #8FCAEF;
+  --tpp-color-blue-100: #65ACD8;
+  --tpp-color-blue-200: #4891BE;
+  --tpp-color-blue-300: #3A7CA5;
+  --tpp-color-blue-400: #357196;
+  --tpp-color-blue-500: #335B7A;
+  --tpp-color-blue-600: #2F4F69;
+  --tpp-color-blue-700: #284256;
+  --tpp-color-blue-800: #203342;
+  --tpp-color-blue-900: #182630;
+
+  --tpp-color-white: #FFFFFF;
+  --tpp-color-dark: #171717;
+
+  /* ---- Color · semánticos (marca TPP) ---- */
+  --tpp-color-brand-primary-01: var(--tpp-color-green-300);
+  --tpp-color-brand-primary-02: var(--tpp-color-green-400);
+  --tpp-color-brand-primary-03: var(--tpp-color-green-700);
+  --tpp-color-brand-secondary-01: var(--tpp-color-blue-300);
+  --tpp-color-brand-secondary-02: var(--tpp-color-blue-500);
+  --tpp-color-brand-secondary-03: var(--tpp-color-blue-800);
+
+  --tpp-color-neutral-50: #F9FAFB;
+  --tpp-color-neutral-100: #F3F4F6;
+  --tpp-color-neutral-200: #E5E7EB;
+  --tpp-color-neutral-300: #D1D5DB;
+  --tpp-color-neutral-400: #9CA3AF;
+  --tpp-color-neutral-500: #686F7D;
+  --tpp-color-neutral-600: #4B5563;
+  --tpp-color-neutral-700: #374151;
+  --tpp-color-neutral-800: #1F2937;
+  --tpp-color-neutral-900: #111827;
+
+  --tpp-color-error-light: #F4B0B2;
+  --tpp-color-error-base: #DC3545;
+  --tpp-color-error-dark: #871C26;
+  --tpp-color-success-light: #56DC95;
+  --tpp-color-success-base: #1CB564;
+  --tpp-color-success-dark: #116E3D;
+  --tpp-color-warning-light: #FFE197;
+  --tpp-color-warning-base: #FFC53D;
+  --tpp-color-warning-dark: #B38C29;
+  --tpp-color-link-light: #99BDFF;
+  --tpp-color-link-base: #2D6DFD;
+  --tpp-color-link-dark: #1E3F73;
+
+  --tpp-color-bg-01: var(--tpp-color-neutral-100);
+  --tpp-color-bg-02: var(--tpp-color-neutral-50);
+  --tpp-color-bg-stroke-02: var(--tpp-color-neutral-200);
+  --tpp-color-bg-modal-01: #203342;
+  --tpp-color-bg-surface: var(--tpp-color-neutral-50);
+  --tpp-color-bg-surface-alt: var(--tpp-color-neutral-200);
+  --tpp-color-bg-surface-alt-darker: var(--tpp-color-neutral-300);
+  --tpp-color-bg-dark: var(--tpp-color-brand-secondary-03);
+
+  --tpp-color-text-primary: #203342;
+  --tpp-color-text-secondary: #6B7280;
+  --tpp-color-text-deactivated: #E6E6E6;
+  --tpp-color-text-inverted: #FFFFFF;
+  --tpp-color-text-hyperlink: #009F93;
+  --tpp-color-text-disabled: #9CA3AF;
+
+  /* ---- Typography ---- */
+  --tpp-font-family-heading: "Poppins", sans-serif;
+  --tpp-font-family-body: "Nunito Sans", sans-serif;
+
+  --tpp-font-weight-extralight: 100;
+  --tpp-font-weight-light: 300;
+  --tpp-font-weight-regular: 500;
+  --tpp-font-weight-semibold: 600;
+  --tpp-font-weight-bold: 700;
+  --tpp-font-weight-extrabold: 800;
+  --tpp-font-weight-black: 900;
+
+  --tpp-font-size-desktop-h1: 32px;
+  --tpp-font-size-desktop-h2: 24px;
+  --tpp-font-size-desktop-h3: 20px;
+  --tpp-font-size-desktop-h4: 18px;
+  --tpp-font-size-desktop-body-18: 18px;
+  --tpp-font-size-desktop-body-16: 16px;
+  --tpp-font-size-desktop-body-14: 14px;
+  --tpp-font-size-desktop-body-12: 12px;
+  --tpp-font-size-desktop-body-10: 10px;
+
+  --tpp-font-size-mobile-h1: 24px;
+  --tpp-font-size-mobile-h2: 22px;
+  --tpp-font-size-mobile-h3: 20px;
+  --tpp-font-size-mobile-h4: 18px;
+  --tpp-font-size-mobile-body-18: 18px;
+  --tpp-font-size-mobile-body-16: 16px;
+  --tpp-font-size-mobile-body-14: 14px;
+  --tpp-font-size-mobile-body-12: 12px;
+  --tpp-font-size-mobile-body-10: 10px;
+
+  --tpp-line-height-header: 31px;
+  --tpp-line-height-body-18: 28px;
+  --tpp-line-height-body-16: 26px;
+  --tpp-line-height-body-14: 24px;
+  --tpp-line-height-body-12: 22px;
+  --tpp-line-height-body-10: 14px;
+
+  --tpp-letter-spacing-header: -0.5px;
+  --tpp-letter-spacing-body: 0px;
+
+  /*
+    ---- Spacing ----
+    Escala real "spacing/0"–"spacing/13" (Figma, librería "Design System 2.0 - Multi-brand",
+    colección de variables "Properties"). Solo 2 de los 14 pasos tienen valor px confirmado
+    (los usados por el botón CTA); el resto existen como variable pero no se han resuelto
+    todavía. No inventes los que faltan — vuelve a Figma o pide el export de "Properties".
+  */
+  --tpp-spacing-4: 10px; /* confirmado: usado como padding vertical del botón CTA */
+  --tpp-spacing-5: 16px; /* confirmado: usado como padding horizontal / gap del botón CTA */
+
+  /* ---- Radius / tamaños de componente (Buttons) ---- */
+  --tpp-radius-button-cta: 10px;
+  --tpp-radius-button-secondary: 8px;
+  --tpp-button-height-small: 32px;
+  --tpp-button-height-regular: 40px;
+  --tpp-button-height-large: 48px;
+}

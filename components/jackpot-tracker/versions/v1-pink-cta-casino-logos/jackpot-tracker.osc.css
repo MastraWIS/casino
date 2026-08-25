@@ -1,0 +1,337 @@
+/*
+  Componente: Jackpot Tracker — variante OSC (onlinespielcasino.de)
+  Adaptación de components/jackpot-tracker/jackpot-tracker.css (host de referencia TPP) a los tokens
+  reales de producción de OSC (tokens/osc.tokens.css). Mismo patrón/estructura, otra marca:
+  - Fondo hero: gradiente wine/plum real de OSC en vez del navy plano de TPP.
+  - Acento de la cifra de jackpot: oro (color real de H1/estrellas de OSC), no el teal de marca —
+    el teal de OSC se reserva para el CTA, igual que en producción (siempre el mismo teal ahí).
+  - CTA propio (.osc-btn-cta) replicando el botón real "Bonus Holen" (bg/radius/weight/font
+    idénticos a los 13 botones muestreados en la home) en vez de reutilizar el .tpp-btn-cta de TPP.
+*/
+
+.osc-jackpot-tracker {
+  --jt-text-muted: rgba(255, 255, 255, 0.65);
+
+  background: var(--osc-gradient-hero);
+  border-radius: var(--osc-radius-card);
+  padding: 32px 24px;
+  font-family: var(--osc-font-family);
+  color: var(--osc-color-text-inverted);
+}
+
+/* ---- Header ---- */
+
+.osc-jackpot-tracker__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.osc-jackpot-tracker__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: var(--osc-font-weight-h3, 700);
+  font-size: var(--osc-font-size-h3, 22px);
+  margin: 0;
+}
+
+.osc-jackpot-tracker__live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--osc-color-pink);
+  flex-shrink: 0;
+  animation: osc-jt-pulse 1.8s ease-in-out infinite;
+}
+
+.osc-jackpot-tracker__updated {
+  font-size: 12px;
+  color: var(--jt-text-muted);
+}
+
+@keyframes osc-jt-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(237, 30, 121, 0.55); }
+  50% { box-shadow: 0 0 0 5px rgba(237, 30, 121, 0); }
+}
+
+/* ---- Hero cards ---- */
+
+.osc-jackpot-tracker__hero-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 900px) {
+  .osc-jackpot-tracker__hero-grid { grid-template-columns: 1fr; }
+}
+
+.osc-jt-card {
+  position: relative;
+  background: var(--osc-color-purple-700);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--osc-radius-card);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.osc-jt-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.osc-jt-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.osc-jt-badge--overdue { background: var(--osc-color-gold); color: var(--osc-color-purple-900); }
+.osc-jt-badge--hot { background: var(--osc-color-pink); color: var(--osc-color-text-inverted); }
+.osc-jt-badge--recent { background: rgba(255, 255, 255, 0.1); color: var(--jt-text-muted); border: 1px solid rgba(255, 255, 255, 0.15); }
+
+.osc-jt-card__provider {
+  font-size: 12px;
+  color: var(--jt-text-muted);
+}
+
+.osc-jt-card__game {
+  font-weight: var(--osc-font-weight-h3, 700);
+  font-size: 18px;
+  margin: 0;
+}
+
+.osc-jt-card__amount {
+  font-weight: 800;
+  font-size: 32px;
+  color: var(--osc-color-gold);
+  transition: color 0.2s ease;
+}
+
+.osc-jt-card__amount.is-updating { color: var(--osc-color-text-inverted); }
+
+.osc-jt-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.osc-jt-stat__label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--jt-text-muted);
+  margin-bottom: 2px;
+}
+
+.osc-jt-stat__value {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.osc-jt-card__signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.osc-jt-card__signal::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.osc-jt-card__signal--go { color: var(--osc-color-gold); }
+.osc-jt-card__signal--go::before { background: var(--osc-color-gold); }
+.osc-jt-card__signal--wait { color: var(--jt-text-muted); }
+.osc-jt-card__signal--wait::before { background: var(--jt-text-muted); }
+
+/*
+  ---- CTA — clon exacto del botón real "BONUS HOLEN" del hub de bonos
+  (/bester-casino-bonus/, clase real ".promo-code-cta-primary"). Tomado de las reglas CSS reales
+  del sitio, no solo del computed style: incluye el "3D bottom shadow" (box-shadow sólido que NO
+  cambia entre estados) y el oscurecimiento de fondo en :hover/:active.
+  Único cambio deliberado vs. producción: ahí el botón mide width:50% porque comparte fila con un
+  botón secundario "CODE" que este componente no tiene — aquí ocupa el ancho completo disponible.
+*/
+
+.osc-btn-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: none;
+  border-radius: var(--osc-radius-promo-cta, 8px);
+  background: var(--osc-color-promo-cta-bg, #ED1E79);
+  color: var(--osc-color-promo-cta-text, #fff);
+  font-family: var(--osc-font-family);
+  font-weight: var(--osc-font-weight-promo-cta, 600);
+  font-size: var(--osc-font-size-promo-cta, 14px);
+  line-height: 18px;
+  text-transform: var(--osc-text-transform-promo-cta, uppercase);
+  padding: var(--osc-spacing-promo-cta-padding, 12px 20px);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--osc-color-promo-cta-shadow, #A40E4C) 0 3px 0 0;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.osc-btn-cta:hover { background: var(--osc-color-promo-cta-bg-hover, #FF3E93); }
+.osc-btn-cta:active { background: var(--osc-color-promo-cta-bg-active, #A30D4C); }
+
+/*
+  ---- Casino logo chip — patrón real ".promo-code-bookie-logo-btn" del hub de bonos: caja de
+  118x40px, radius 8px, fondo teñido con el color de marca de CADA operador (no un chip genérico
+  blanco — medido real por casino: Ice Casino #1667FE, Beef #232E3F, V.Vegas #5CAFBD, Crocoslots
+  #212738, Bitkingz #242732, Slotsgem #000000, SpinLynx #100032, Vegazone #321A1C). El color se
+  fija por casino vía --osc-jt-casino-bg en el HTML/JS, no hay un solo valor fijo aquí.
+*/
+
+.osc-jt-card__casino {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 118px;
+  height: 40px;
+  background: var(--osc-jt-casino-bg, #232E3F);
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
+.osc-jt-card__casino-logo {
+  width: 116px;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.osc-jt-table__casino {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 28px;
+  background: var(--osc-jt-casino-bg, #232E3F);
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.osc-jt-table__casino-logo {
+  width: 68px;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.osc-jt-table__cta-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---- Table ---- */
+
+.osc-jackpot-tracker__table-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.osc-jt-search {
+  background: var(--osc-color-purple-700);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: var(--osc-color-text-inverted);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  min-width: 220px;
+}
+
+.osc-jt-search::placeholder { color: var(--jt-text-muted); }
+.osc-jt-search:focus { outline: 2px solid var(--osc-color-gold); outline-offset: 1px; }
+
+.osc-jackpot-tracker__table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--osc-radius-card);
+}
+
+.osc-jt-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 14px;
+}
+
+.osc-jt-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--jt-text-muted);
+  padding: 10px 16px;
+  background: var(--osc-color-purple-700);
+  position: sticky;
+  top: 0;
+}
+
+.osc-jt-table th[data-sortable] { cursor: pointer; user-select: none; }
+.osc-jt-table th[data-sortable]:hover { color: var(--osc-color-text-inverted); }
+
+.osc-jt-table td {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  vertical-align: middle;
+}
+
+.osc-jt-table tbody tr:hover { background: rgba(255, 255, 255, 0.04); }
+
+.osc-jt-table__game { font-weight: 600; }
+.osc-jt-table__provider { color: var(--jt-text-muted); font-size: 12px; }
+.osc-jt-table__amount { font-weight: 700; color: var(--osc-color-gold); }
+
+.osc-jt-table .osc-btn-cta {
+  width: auto;
+  padding: 6px 16px;
+  font-size: 12px;
+}
+
+.osc-jackpot-tracker__footer {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.osc-jackpot-tracker__footer a {
+  color: var(--osc-color-gold);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.osc-jackpot-tracker__footer a:hover { text-decoration: underline; }

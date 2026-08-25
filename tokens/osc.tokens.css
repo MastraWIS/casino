@@ -1,0 +1,123 @@
+/*
+  OSC (onlinespielcasino.de) Design Tokens — CSS Custom Properties
+  Fuente: producción real, https://www.onlinespielcasino.de/ — CSS Custom Properties del :root
+  (solo 5 activas, de un plugin de terceros, no de marca) + estilos computados de elementos reales
+  del DOM (getComputedStyle). Extraído: 2026-08-24. No hay Figma/design-system publicado para OSC
+  todavía — a diferencia de TPP, esta capa de tokens es 100% producción, sin capa de "primitivos" de
+  Figma que la respalde. Ante cualquier ambigüedad se documenta como tal, no se inventa.
+  Prefijo --osc- para no chocar con los tokens --tpp- ya existentes en este mismo repo.
+
+  Sitio en alemán (de-DE) — la UI de los componentes que consuman este archivo debe ir en alemán.
+*/
+
+:root {
+  /* ---- Color · marca "wine/plum" (fondo de hero, promo cards, sidebar cards) ---- */
+  --osc-color-purple-900: #2A1623; /* stop oscuro del gradiente de header/hero */
+  --osc-color-purple-800: #402336; /* stop medio del gradiente; = color del texto "rank-number" (text-purple-42) */
+  --osc-color-purple-700: #4F2A43; /* bg sólido confirmado de las side cards ("Neue/Beste Online Casinos") */
+  --osc-color-purple-600: #5E2F4E; /* stop claro del gradiente de la promo card */
+
+  --osc-gradient-hero: linear-gradient(121deg, var(--osc-color-purple-800) 24.55%, var(--osc-color-purple-900) 96.86%);
+  --osc-gradient-promo-card: linear-gradient(104deg, var(--osc-color-purple-600) 24.55%, var(--osc-color-purple-800) 58%, var(--osc-color-purple-900) 96.86%);
+
+  /* ---- Color · acentos de marca ---- */
+  /* Oro — color del H1 sobre fondo oscuro (#FDC24F) y del fill real de los iconos de estrella
+     (#FDC34F). Diferencia de 1 unidad de azul, probablemente el mismo token con redondeo distinto
+     entre dos usos — se documenta como un solo token, no se promedian valores. */
+  --osc-color-gold: #FDC34F;
+  --osc-color-gold-heading: #FDC24F; /* variante medida en H1, ver nota arriba */
+
+  --osc-color-pink: #ED1E79; /* ribbon "ANBIETER DES MONATS" — usar para urgencia/destacado */
+
+  /* CTA — idéntico en los 13 botones "Bonus Holen" muestreados en la home, sin variación */
+  --osc-color-cta-bg: #199AA9;
+  --osc-color-cta-text: #FFFFFF;
+
+  /*
+    Promo CTA — botón real "BONUS HOLEN" de la página hub /bester-casino-bonus/ (clase real
+    ".promo-code-cta-primary", 18 instancias muestreadas, sin variación). Distinto del CTA teal de
+    home: este es el que se usa en contexto de oferta/promo-code, rosa, con el "3D bottom shadow"
+    típico de botón presionable. Fuente exacta: reglas CSS reales de la hoja de estilos del sitio
+    (no solo computed style), incluye :hover y :active.
+  */
+  --osc-color-promo-cta-bg: #ED1E79;
+  --osc-color-promo-cta-bg-hover: #FF3E93;
+  --osc-color-promo-cta-bg-active: #A30D4C;
+  --osc-color-promo-cta-text: #FFFFFF;
+  --osc-color-promo-cta-shadow: #A40E4C;
+  --osc-radius-promo-cta: 8px;
+  --osc-spacing-promo-cta-padding: 12px 20px; /* medido exacto, no inferido */
+  --osc-font-size-promo-cta: 14px;
+  --osc-font-weight-promo-cta: 600;
+  --osc-text-transform-promo-cta: uppercase;
+
+  /*
+    Logo chip del operador (clase real ".promo-code-bookie-logo-btn", hub de bonos) — caja de
+    118x40px, radius 8px, object-fit: contain. El fondo NO es un valor fijo: cada operador tiene
+    su propio color de marca ahí (medido real, 8 muestras): Ice Casino #1667FE, Beef Casino
+    #232E3F, V.Vegas #5CAFBD, Crocoslots #212738, Bitkingz #242732, Slotsgem #000000, SpinLynx
+    #100032, Vegazone #321A1C. No hay un "--osc-color-casino-chip-bg" único — se fija por instancia.
+  */
+  --osc-radius-casino-chip: 8px;
+  --osc-size-casino-chip-w: 118px;
+  --osc-size-casino-chip-h: 40px;
+
+  /*
+    Category badge (clase real ".category-badge.bg-pink-dark", usada en las cards de ranking de la
+    home — "Beliebt", "Schnelle Auszahlung", "Newcomer", "Exklusiver Bonus", "Bitcoin Casino"). Una
+    sola variante visual real para TODAS las categorías — no cambia de color por tipo de etiqueta.
+  */
+  --osc-color-category-badge-bg: #ED1E79;
+  --osc-color-category-badge-text: #FFFFFF;
+  --osc-radius-category-badge: 4px;
+  --osc-spacing-category-badge-padding: 4.25px 8.5px; /* medido exacto */
+  --osc-font-size-category-badge: 14px;
+  --osc-line-height-category-badge: 20px;
+  --osc-font-weight-category-badge: 500;
+
+  /* ---- Neutrales ---- */
+  --osc-color-bg-page: #F2F2F2;      /* background real del <body> */
+  --osc-color-text-primary: #212529; /* color real de H2/H3/body sobre fondo claro (Bootstrap gray-900) */
+  --osc-color-text-inverted: #FFFFFF;
+  --osc-color-link: #337AB7;         /* color real de los links de nombre de casino dentro de listing cards */
+
+  /* Sin confirmar por computed style (solo inferido del nombre de clase CSS "border-gray-eb" en las
+     listing cards; el border real midió 0px en el viewport probado). No lo trates como medido. */
+  --osc-color-card-border: #EBEBEB;
+  --osc-color-card-shadow: rgba(0, 0, 0, 0.15);
+
+  /* ---- Typography ---- */
+  /* A diferencia de TPP (Poppins headers / Nunito Sans body), OSC usa UNA sola familia para todo. */
+  --osc-font-family: "Poppins", sans-serif;
+
+  --osc-font-size-h1: 30px;   /* medido en el H1 real del hero (fondo oscuro) */
+  --osc-line-height-h1: 39px;
+  --osc-font-weight-h1: 700;
+
+  --osc-font-size-h2: 26px;   /* medido en 3 H2 reales distintos de la home, coincide exacto en los 3 */
+  --osc-font-weight-h2: 700;
+
+  --osc-font-size-h3: 22px;   /* medido en 3 H3 reales distintos, coincide exacto */
+  --osc-font-weight-h3: 700;
+
+  /* Tamaño base del <body> medido = 17px. No se encontró un párrafo de artículo "limpio" en la home
+     para confirmar el body-text real (el único <p> largo muestreado era un disclaimer de 10-12px,
+     no representativo) — usar 17px como valor de trabajo, re-confirmar contra una página de artículo
+     si se necesita precisión. */
+  --osc-font-size-body: 17px;
+  --osc-font-weight-body-regular: 400;
+
+  --osc-font-size-cta: 13px;
+  --osc-font-weight-cta: 600;
+
+  /* ---- Radius / Shadow ---- */
+  --osc-radius-button: 8px;   /* confirmado, igual en los 13 botones CTA muestreados */
+  --osc-radius-card: 16px;    /* confirmado, clase "rounded-16" + boxShadow real */
+  --osc-shadow-card: 0 8px 32px var(--osc-color-card-shadow);
+
+  /* Padding real medido del botón CTA = 8.5px uniforme en las 4 direcciones (display:flex, el ancho
+     visual real viene del grid/columna contenedora, no del padding horizontal). Para un botón standalone
+     fuera de ese grid se usa un padding horizontal mayor — desviación documentada, no medida 1:1. */
+  --osc-spacing-cta-padding-y: 9px;
+  --osc-spacing-cta-padding-x: 20px;
+}

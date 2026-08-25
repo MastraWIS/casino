@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>OSC Jackpot-Tracker — Vorschau</title>
+<link rel="stylesheet" href="../../tokens/osc.tokens.css" />
+<link rel="stylesheet" href="jackpot-tracker.osc.css" />
+<style>
+  body { background: #e6e6e6; padding: 40px; font-family: sans-serif; }
+  .page { max-width: 1100px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<section class="osc-jackpot-tracker" aria-label="Jackpot-Tracker">
+  <div class="osc-jackpot-tracker__header">
+    <h2 class="osc-jackpot-tracker__title">
+      <span class="osc-jackpot-tracker__live-dot" aria-hidden="true"></span>
+      Live-Jackpot-Tracker
+    </h2>
+    <span class="osc-jackpot-tracker__updated">Aktualisiert: <span id="osc-jt-updated">gerade eben</span></span>
+  </div>
+
+  <div class="osc-jackpot-tracker__hero-grid" id="osc-jt-hero-grid"></div>
+
+  <div class="osc-jackpot-tracker__table-controls">
+    <h3 style="margin:0; font-size:16px;">Alle verfolgten Jackpots</h3>
+    <input type="search" id="osc-jt-search" class="osc-jt-search" placeholder="Spiel oder Anbieter suchen…" />
+  </div>
+
+  <div class="osc-jackpot-tracker__table-wrap">
+    <table class="osc-jt-table">
+      <thead>
+        <tr>
+          <th data-sortable="game">Spiel</th>
+          <th data-sortable="amount">Jackpot</th>
+          <th>Anbieter</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="osc-jt-table-body"></tbody>
+    </table>
+  </div>
+
+  <div class="osc-jackpot-tracker__footer">
+    <a href="#">Alle Jackpots ansehen →</a>
+  </div>
+</section>
+
+</div>
+<script src="jackpot-tracker.osc.js"></script>
+</body>
+</html>
