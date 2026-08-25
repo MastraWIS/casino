@@ -9,6 +9,16 @@
 <style>
   body { background: #e6e6e6; padding: 40px; font-family: sans-serif; }
   .page { max-width: 1100px; margin: 0 auto; }
+
+  /* Este archivo es un "preview harness" (fondo gris + padding, para ver el componente aislado).
+     Ese padding generoso está pensado para desktop — en mobile solo restaba ancho útil y dejaba
+     el componente flotando con márgenes grises en vez de ocupar la pantalla. El componente ya
+     tiene su propio padding interno responsive (ver jackpot-tracker.osc.css), así que aquí basta
+     con reducir el del harness. */
+  @media (max-width: 680px) {
+    body { padding: 8px; }
+    .page { max-width: 100%; }
+  }
 </style>
 </head>
 <body>
